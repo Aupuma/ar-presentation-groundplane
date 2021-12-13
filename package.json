@@ -1,0 +1,19 @@
+{
+  "name": "ar-presentation-groundplane",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aupuma/ar-presentation-groundplane.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Aupuma/ar-presentation-groundplane/issues"
+  },
+  "homepage": "https://github.com/Aupuma/ar-presentation-groundplane#readme"
+}

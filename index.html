@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Aurelio Puerta - Freelance Creative Technologist</title>
+    <meta name="description" content="Hi, this is me!">
+    <link rel="stylesheet" href="style.css">
+
+    <!--AR Tracking-->
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.1.0/dist/mindar-image.prod.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.1.0/dist/mindar-image-aframe.prod.js"></script>
+    <script src="static/src/ARManager.js"></script>
+
+    <!--External components-->
+    <script src="https://unpkg.com/aframe-text-geometry-component@^0.5.0/dist/aframe-text-geometry-component.min.js"></script> 
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-slice9-component/dist/aframe-slice9-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+
+    <!--My custom components-->
+    <script src="static/src/website-button-component.js"></script>
+    <script src="static/src/scene-button-component.js"></script>
+    <script src="static/src/repeat-animation-interval-component.js"></script>
+    <script src="static/src/change-model-color-component.js"></script>
+    <script src="static/src/video-controller-component.js"></script>
+    <script src="static/src/play-character-animation-component.js"></script>
+    <script src="static/src/show-on-video-time-component.js"></script>
+  </head>
+  <body>
+    <!--Scanning overlay-->
+    <div id="scanning-overlay" class="hidden">
+      <div class="inner">
+	      <img src="static/media/HexagonalTrackerName.png"/>
+	      <div class="scanline"></div>
+      </div>
+    </div>
+
+
+    <a-scene  mindar-image="imageTargetSrc: static/hexagonalTracker.mind; uiScanning: #scanning-overlay" 
+    vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false"
+    inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js"
+    loading-screen="backgroundColor:black"
+    >
+    <!-- <a-scene inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js"> -->
+
+      <a-assets>
+        <!--Images-->
+        <img id="playTexture" src="static/media/playTexture.png" crossorigin="anonymous">
+        <img id="roundedSquareBG" src="static/media/9 slice square.png" crossorigin="anonymous">
+        
+        <!--Videos-->
+        <video id="reel" src="static/media/PortfolioReelLowRes.mp4" loop="false" crossorigin="anonymous"></video>
+
+        <!--Fonts-->
+        <a-asset-item id="PaytoneFont" src="static/fonts/Paytone One_Regular.json"></a-asset-item>
+        <a-asset-item id="Exo2Font" src="static/fonts/Exo 2 Black_Regular.json"></a-asset-item>
+
+        <!--3D Models-->
+        <a-asset-item id="Button3DBackground" src="static/meshes/Rounded Prisma.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        <a-asset-item id="Whatsapp3DIcon" src="static/meshes/WhatsappIcon3D.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        <a-asset-item id="LinkedIn3DIcon" src="static/meshes/LinkedinIcon3D.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        <a-asset-item id="Twitter3DIcon" src="static/meshes/TwitterIcon3D.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        <a-asset-item id="Gmail3DIcon" src="static/meshes/GmailIcon3D.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        <a-asset-item id="Instagram3DIcon" src="static/meshes/InstagramIcon3D.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        <a-asset-item id="MiniYo3DModel" src="static/meshes/yoAnimated.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        
+        <a-asset-item id="ARServiceModel" src="static/meshes/MobileARService.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        <a-asset-item id="VRServiceModel" src="static/meshes/VRService.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        <a-asset-item id="3DPrintServiceModel" src="static/meshes/3DPrintingService.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+
+        <!--"Low-poly Shoe" (https://skfb.ly/6TAXT) by ItsReynTime is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).-->
+        <a-asset-item id="3DScanServiceModel" src="static/meshes/3DScanningService.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        
+        <!--"Low Poly Light Bulb" (https://skfb.ly/6VnSG) by AleixoAlonso is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).-->
+        <a-asset-item id="lowPolyLightbulbModel" src="static/meshes/lowPolyLightbulb.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        <!--"Xbox Controller LP" (https://skfb.ly/6VZNU) by VioletBoom is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).-->
+        <a-asset-item id="lowPolyControllerModel" src="static/meshes/lowPolyController.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+        <!--"Cartoon Plane" (https://skfb.ly/UOLT) by antonmoek is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).-->
+        <a-asset-item id="lowPolyPlaneModel" src="static/meshes/lowPolyPlane.glb" response-type="arraybuffer" crossorigin="anonymous"></a-asset-item>
+
+        <!--Mixins (presets)-->
+        <a-mixin id="SceneGroup"       
+        animation__show="property: scale; to: 1 1 1; dur: 150; startEvents: show; autoplay:false; easing:easeOutQuad" 
+        animation__hide="property:scale; to:0 0 0; dur: 150; startEvents: hide; autoplay:false; easing:easeOutQuad">
+        </a-mixin>
+
+        <a-mixin id="SceneButton" scale="0.25 0.25 0.25" rotation="-20 0 0" gltf-model="#Button3DBackground"  
+        animation__push="property: scale; to: 0.15 0.15 0.15; dir:alternate; dur: 125; easing: easeOutQuad; startEvents: push; loop:1"
+        animation__pop="property: scale; from: 0.25 0.25 0.25; to: 0.3 0.3 0.3; dir:alternate; dur: 750; easing: easeOutQuad; pauseEvents:push; resumeEvents:push; startEvents: pop; loop:1"
+        repeat-animation-interval="animationName: pop; interval:3000"
+        ></a-mixin>
+
+        <a-mixin id="HomeButton" position="0 0.36 1" scale="0.15 0.2 0.2" rotation="-20 0 0"
+        change-model-color= "#2a10aa" gltf-model="#Button3DBackground"  
+        animation__push="property: scale; to: 0.15 0.15 0.15; dir:alternate; dur: 125; easing: easeOutQuad; startEvents: push; loop:1"
+        play-character-animation="clip:Waving"
+        ></a-mixin>
+
+        <a-mixin id="HomeText" position="-2.330 -0.40455 0.99193" scale="1.33 1 1"
+        text-geometry="value: HOME; height: 0.25; size: 0.85; font:#Exo2Font"
+        material="color:#cecece">
+        </a-mixin>
+
+        <a-mixin id="SocialNetworksButton" scale="7.43008 7.43008 7.43008" rotation="-20 0 0" 
+        animation__punch="property: scale; to: 9 9 9; dir:alternate; dur: 750; easing: easeOutQuad; startEvents: punch; loop:1"
+        repeat-animation-interval="animationName: punch; interval:3000"
+        ></a-mixin>
+
+        <a-mixin id="DescriptionText" text-geometry="height: 0; size: 0.12; font:#Exo2Font"></a-mixin>
+
+        <a-mixin id="ServiceEntity" position="1.75 0.5 0" scale="0 0 0" visible="false"
+        show-on-video-time="video:#reel; videoController:#ReelVideo; showAnimEvent: showSv; hideAnimEvent: hideSv"
+        animation__show="property: scale; to: 1 1 1; dur: 125; easing: easeOutQuad; startEvents: showSv"
+        animation__hide="property: scale; to: 0 0 0; dur: 125; easing: easeOutQuad; startEvents: hideSv">
+      </a-mixin>
+        <a-mixin id="ServiceModel" position="0 0.52756 0" scale="0.05 0.05 0.05"  animation="property:rotation; to: 0 360 0; dur: 16000; easing: linear; loop: true" animation-mixer></a-mixin> 
+        <a-mixin id="ServiceText" scale="0.43881 0.43881 0.43881" rotation="-20 0 0" text-geometry="height: 0.25; size: 0.85; font:#Exo2Font" material="color:#cecece"></a-mixin>
+      </a-assets>
+      
+      <a-entity light="type: ambient; color: #BBB"></a-entity>
+      <a-entity light="type: directional; color: #FFF; intensity: 0.6; target:#directionaltarget" position="-0.5 -1 0">
+        <a-entity id="directionaltarget" position="2.75 2 -4.5"></a-entity>
+      </a-entity>
+
+      <!--Camera-->
+      <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 20000; objects: .clickable"></a-camera>
+      
+      <!-- Image target -->
+      <a-entity id="image-target" mindar-image-target="targetIndex: 0">
+        <!--Augmented content-->
+        <a-entity id="SceneWrapper" scale="0 0 0" rotation="90 0 0"
+        animation__show="property: scale; from: 0 0 0; to: 0.4 0.4 0.4; dur: 200; startEvents: showElements; autoplay:false; easing:easeOutQuad" 
+        animation__hide="property:scale; to:0 0 0; dur: 200; startEvents: hideElements; autoplay:false; easing:easeOutQuad"
+        >
+          <!--3D Avatar-->
+          <a-entity id="MiniYo" position="0.01 0 0" scale="0.012 0.012 0.012" gltf-model="#MiniYo3DModel"
+            animation-mixer="clip:Waving; crossFadeDuration: 0.5"
+          ></a-entity>
+
+          <!-- Scene groups -->
+          <a-entity id="MainButtonsGroup" scale="1 1 1" position="0 0 -0.65069" mixin="SceneGroup" visible="true">
+
+            <a-box id="ServicesButton" position="0 4.8 0.5" mixin="SceneButton" change-model-color="#ff6651"
+            scene-button="sceneToShow:#ServicesGroup; sceneToHide:#MainButtonsGroup" 
+            play-character-animation="clip: PayingAttention; loop: false">
+              <a-entity id="ServicesText"  position="-2.77724 -0.40455 0.99193" 
+                text-geometry="value: SERVICES; height: 0.25; size: 0.85; font:#Exo2Font"
+                material="color:#cecece">
+              </a-entity>
+            </a-box>
+
+            <a-box id="ContactButton" position="0 4 0.476" mixin="SceneButton" change-model-color="#7765F3"
+            scene-button="sceneToShow: #SSNNButtonsGroup; sceneToHide: #MainButtonsGroup"
+            play-character-animation="clip: Talking">
+              <a-entity id="ContactText"  position="-2.55047 -0.40455 0.99193" 
+                text-geometry="value: CONTACT; height: 0.25; size: 0.8; font:#Exo2Font"
+                material="color:#cecece">
+              </a-entity>
+            </a-box>
+
+            <a-box id="AboutMeButton" position="0 3.2 0.5"  mixin="SceneButton" change-model-color="#31a0a0"
+            scene-button="sceneToShow: #AboutMeGroup; sceneToHide: #MainButtonsGroup"  
+            play-character-animation="clip: HipHop">
+              <a-entity id="AboutMeText"  position="-3.01893 -0.40455 0.99193" 
+              text-geometry="value: ABOUT ME; height: 0.25; size: 0.85; font:#Exo2Font"
+              material="color:#cecece">
+              </a-entity>
+            </a-box>
+
+          </a-entity>
+
+          <a-entity id="ServicesGroup"  scale="0.0001 0.0001 0.0001" mixin="SceneGroup" visible="false">
+
+            <a-entity id="ARService" mixin="ServiceEntity"
+            show-on-video-time="showTime:3.0; hideTime: 22.0">
+              <a-entity id="ARModel" mixin="ServiceModel" gltf-model="#ARServiceModel"></a-entity>
+              <a-entity id="ARServiceText" mixin="ServiceText"  position="-0.38375 0.00219 0.79166" text-geometry="value: AR"></a-entity>
+            </a-entity>
+
+            <a-entity id="VRService"mixin="ServiceEntity"
+            show-on-video-time="showTime:23.0; hideTime: 40.0">
+              <a-entity id="VRModel"  mixin="ServiceModel" gltf-model="#VRServiceModel"></a-entity>
+              <a-entity id="VRServiceText" mixin="ServiceText"  position="-0.32426 0.00219 0.79166" text-geometry="value: VR"></a-entity>
+            </a-entity>
+
+            <a-entity id="3DScanService" mixin="ServiceEntity"
+            show-on-video-time="showTime:41.0; hideTime: 55.0">
+              <a-entity id="3DScanModel"  mixin="ServiceModel" gltf-model="#3DScanServiceModel"></a-entity>
+              <a-entity id="3DScanText" mixin="ServiceText"  position="-1.23289 0.00219 0.79166" text-geometry="value: 3D SCAN"></a-entity>
+            </a-entity>
+
+            <a-entity id="3DPrintService" mixin="ServiceEntity"
+            show-on-video-time="showTime:56.0; hideTime: 69.0">
+              <a-entity id="3DPrintModel"   mixin="ServiceModel" gltf-model="#3DPrintServiceModel"></a-entity>
+              <a-entity id="3DPrintText" mixin="ServiceText"  position="-1.23289 0.00219 0.79166" text-geometry="value: 3D PRINT"></a-entity>
+            </a-entity>
+
+            <a-video id="ReelVideo" rotation="0 0 0" src="#reel" video-controller look-at="[camera]"
+            width="1.6" height="0.9" scale="2 2 2" position="0 4.5 -0.1982">
+              <a-plane src="#playTexture" scale="0.5 0.5 0.5" position="0 0 0.03" shader="flat" material="alphaTest: 0.5"></a-plane>
+            </a-video>
+
+            <a-box id="ServicesHomeButton" mixin="HomeButton"
+            scene-button="sceneToShow:#MainButtonsGroup; sceneToHide:#ServicesGroup">
+              <a-entity mixin="HomeText"></a-entity>
+            </a-box>
+          </a-entity>
+          
+          <a-entity id="SSNNButtonsGroup"  scale="0.0001 0.0001 0.0001" mixin="SceneGroup" visible="false">
+
+            <a-entity id="WhatsappButton" website-button="https://wa.me/+34648836832" animation__punch="delay:1000"
+            position="0 3.70848 0" gltf-model="#Whatsapp3DIcon" mixin="SocialNetworksButton" ></a-entity>
+
+            <a-entity id="LinkedInButton" website-button="https://www.linkedin.com/in/aurelio-puerta-martín-056723157" animation__punch="delay:500"
+            position="-1 4.78392 0" gltf-model="#LinkedIn3DIcon" mixin="SocialNetworksButton"></a-entity>
+            
+            <a-entity id="TwitterButton" website-button="https://www.twitter.com/aurepuerta_dev" animation__punch="delay:750"
+            position="1 2.53271 0" gltf-model="#Twitter3DIcon" mixin="SocialNetworksButton" ></a-entity>
+            
+            <a-entity id="GmailButton"  website-button="https://mailto:aurepuertadev@gmail.com" 
+            position="1 4.79871 0" gltf-model="#Gmail3DIcon" mixin="SocialNetworksButton" ></a-entity>  
+          
+            <a-entity id="InstagramIcon"  website-button="https://www.instagram.com/aupumaworkshop/" animation__punch="delay:250"
+            position="-1 2.47736 0" gltf-model="#Instagram3DIcon" mixin="SocialNetworksButton" ></a-entity>  
+          
+            <a-box id="SSNNHomeButton" mixin="HomeButton"
+            scene-button="sceneToShow:#MainButtonsGroup; sceneToHide:#SSNNButtonsGroup">
+              <a-entity mixin="HomeText"></a-entity>
+            </a-box>
+          </a-entity>
+
+          <a-entity id="AboutMeGroup" scale="0.0001 0.0001 0.0001" mixin="SceneGroup" visible="false">
+
+          <a-entity id="HobbyModels" position="0 0.8924 0"
+          animation="property:rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true">
+            <a-cylinder id="HobbyModel1" scale="6 6 6" position="0.96919 1.91491 0.0901" gltf-model="#lowPolyLightbulbModel"></a-cylinder>
+            <a-cylinder id="HobbyModel2" rotation="0 50.32746680870125 0" scale="6 6 6" position="-0.60055 1.91491 0.60805" gltf-model="#lowPolyPlaneModel" animation-mixer="clip:Fly"></a-cylinder>
+            <a-cylinder id="HobbyModel3" rotation="0 -164.65431933351545 0" scale="6 6 6" position="-0.28741 1.91491 -0.83571" gltf-model="#lowPolyControllerModel"></a-cylinder>
+          </a-entity>
+
+          <a-entity id="DescriptionBackground" position="0 4 0" rotation="-20 0 0" scale="0.9 0.9 0.9"
+          slice9="width: 2.45; height: 1.1; left: 20; right: 43; top: 20; bottom: 43; src: #roundedSquareBG; opacity: 0.75; color: #FF6651">
+            
+            <a-entity id="CreativeText"  position="-0.90391 0.87342 0" material="color:#FFFFFF"
+            text-geometry="value:I'm a Creative; height: 0.1; size: 0.2; font:#Exo2Font"></a-entity>
+            <a-entity id="TechnologistText"  position="-0.88895 0.62004 0" material="color:#FFFFFF"
+            text-geometry="value:Technologist; height: 0.1; size: 0.2; font:#Exo2Font"></a-entity>
+
+            <a-entity id="XRText" position="-1.13 0.29 0.1" mixin="DescriptionText" text-geometry="value:+3 years of experience in XR"></a-entity>
+            <a-entity id="PassionText" position="-1 -0.01 0.1" mixin="DescriptionText" text-geometry="value:Passion in 3D and design"></a-entity>
+            <a-entity id="IncorporateText" position="-0.95 -0.31 0.1" mixin="DescriptionText" text-geometry="value:Striving for Innovation"></a-entity>
+
+          </a-entity>
+                
+          <a-box id="ContactMeHomeButton" mixin="HomeButton"
+          scene-button="sceneToShow:#MainButtonsGroup; sceneToHide:#AboutMeGroup">
+            <a-entity mixin="HomeText"></a-entity>
+          </a-box>
+          </a-entity>
+
+        </a-entity>
+
+        <!--Test plane-->
+        <!-- <a-plane color="blue" opacity="0.5" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane> -->
+      </a-entity>
+
+    </a-scene>
+
+  </body>
+</html>
